@@ -35,6 +35,7 @@ body:has(dialog[open]) { overflow: hidden; }
 .pc .entry { left: 36px; top: 116px; }
 .enter { left: 117px; top: 674px; width: 168px; height: 42px; font-weight: 500; }
 .enter-label { position: absolute; top: 0; left: 8px; line-height: 29px; }
+.opening:not(.pc) .enter-label { left: 0; width: 100%; text-align: center; }
 .enter-line { position: absolute; left: 0; top: 27px; }
 .arrow { position: absolute; transform: rotate(90.94deg); transform-origin: center; }
 .enter .arrow { left: 145px; top: 9px; }
