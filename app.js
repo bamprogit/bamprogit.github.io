@@ -10,8 +10,7 @@ const position = (x, y, width, height) => `left:${x}px;top:${y}px;${width == nul
 const copy = (lines = longCopy, extra = '') => `<div class="copy ${extra}">${lines.map(line => `<p>${line}</p>`).join('')}</div>`;
 const placedCopy = (x, y, width, lines = longCopy, extra = '') => `<div class="placed ${extra}" style="${position(x, y, width)}">${copy(lines)}</div>`;
 const photo = (file, x, y, width, height = width) => image(file, 'placed photo', `style="${position(x, y, width, height)}"`);
-const toggle = () => `<button class="menu-toggle" data-menu aria-label="メニューを開く" aria-haspopup="dialog" aria-controls="menu">${image('aeaff.svg')}${image('aeaff.svg')}${image('aeaff.svg')}</button>`;
-const header = () => `<header class="page-header"><a href="#top" class="header-logo">BAMP!</a>${toggle()}</header>`;
+const header = () => `<header class="page-header"><a href="#top" class="header-logo">BAMP!</a></header>`;
 const footer = () => '<footer class="page-footer"><p>コピーライト</p></footer>';
 const hero = (file, title, subtitle = 'テキストテキスト') => `<section class="hero">${image(file, 'hero-photo')}<h1 class="hero-heading">${title}<span class="hero-subtitle">${subtitle}</span></h1></section>`;
 const more = (to, x, y, label = 'view more') => `<a class="more ${label === 'contact us' ? 'contact-link' : ''}" href="#${to}" style="left:${x}px;top:${y}px"><span>${label}</span>${image(label === 'contact us' ? 'f2652.svg' : 'e7256.svg', 'underline')}${image(label === 'contact us' ? 'ca0f8.svg' : '9f1fc.svg', 'arrow')}</a>`;
@@ -24,7 +23,7 @@ function opening(pc) {
     ${image(pc ? 'bamp-87-295.svg' : 'bamp-5-6.svg', 'opening-tagline', 'aria-label="Bamboo → Action → Movement → Phenomenal!" role="img"')}
     <h1 class="opening-copy">熱狂の渦中へ、いざ。</h1>
     <p class="enter"><span class="enter-label">準備中</span></p>
-    <header class="opening-header">${pc ? image('bamp-87-304.svg', 'opening-small-logo', 'aria-label="BAMP!" role="img"') : ''}${toggle()}</header>
+    <header class="opening-header">${pc ? image('bamp-87-304.svg', 'opening-small-logo', 'aria-label="BAMP!" role="img"') : ''}</header>
   </div>`;
 }
 
