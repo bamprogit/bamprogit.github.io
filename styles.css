@@ -1,0 +1,145 @@
+* { box-sizing: border-box; }
+html { background: #fff; line-break: strict; word-break: normal; }
+body { margin: 0; color: #000; font-family: 'Golos Text', 'Noto Sans JP', sans-serif; font-size: 24px; line-height: 1.2; }
+p, h1, h2, h3 { margin: 0; font-size: inherit; font-weight: inherit; }
+a { color: inherit; text-decoration: none; }
+button { padding: 0; border: 0; border-radius: 0; color: inherit; background: transparent; font: inherit; text-align: inherit; cursor: pointer; }
+img { display: block; }
+a:focus-visible, button:focus-visible { outline: 2px solid #ce0000; outline-offset: 5px; }
+body:has(dialog[open]) { overflow: hidden; }
+.frame { position: relative; width: 402px; margin: 0 auto; background: #fff; zoom: var(--page-scale, 1); overflow: clip; }
+.opening { height: 874px; background: #000; color: #fff; }
+.opening.pc { width: 1280px; height: 832px; }
+.opening-video { position: absolute; top: 0; left: -749px; width: 1888px; height: 874px; object-fit: fill; }
+.pc .opening-video { top: -21px; left: -378px; }
+.opening-shade { position: absolute; inset: 0; background: rgb(0 0 0 / .4); }
+.opening-wordmark, .opening-tagline, .opening-copy, .opening-header, .entry, .enter { position: absolute; }
+.opening-wordmark { top: 65.52px; left: 26.14px; }
+.opening-tagline { top: 794.792px; left: 24.6px; }
+.opening-copy { left: 24px; top: 434px; color: #ce0000; font-family: 'Sawarabi Mincho', serif; font-size: 36px; line-height: 53px; white-space: nowrap; }
+.pc .opening-wordmark { top: 70.4px; left: 64.8px; }
+.pc .opening-tagline { top: 745.584px; left: 291.84px; }
+.pc .opening-copy { left: 320px; top: 392px; font-size: 64px; line-height: 95px; }
+.opening-header { inset: 0 0 auto; height: 70px; }
+.pc .opening-header { height: 100px; }
+.opening-small-logo { position: absolute; left: 38.689px; top: 38.952px; }
+.menu-toggle { position: absolute; top: 10px; right: 11px; width: 50px; height: 50px; }
+.menu-toggle img { position: absolute; left: 0; pointer-events: none; }
+.menu-toggle img:nth-child(1) { top: 0; }
+.menu-toggle img:nth-child(2) { top: 23px; }
+.menu-toggle img:nth-child(3) { top: 45px; }
+.pc .menu-toggle { top: 25px; right: 36px; }
+.pc .menu-toggle img:nth-child(2) { top: 22px; }
+.entry { top: 60px; left: 18px; width: 88px; height: 88px; font-family: 'Inter', sans-serif; font-size: 16px; line-height: 19.36px; color: #000; }
+.entry span { position: absolute; left: 22px; top: 34px; }
+.pc .entry { left: 36px; top: 116px; }
+.enter { left: 117px; top: 674px; width: 168px; height: 42px; font-weight: 500; }
+.enter-label { position: absolute; top: 0; left: 8px; line-height: 29px; }
+.enter-line { position: absolute; left: 0; top: 27px; }
+.arrow { position: absolute; transform: rotate(90.94deg); transform-origin: center; }
+.enter .arrow { left: 145px; top: 9px; }
+.pc .enter { left: 534px; top: 624px; width: 213px; height: 62px; font-size: 48px; }
+.pc .enter-label { left: 6px; line-height: 58px; }
+.pc .enter-line { top: 56px; }
+.pc .enter .arrow { left: 174px; top: 18px; }
+.opening-wordmark, .opening-tagline { animation: opening-title 11.988498s linear both; }
+.opening-copy, .opening-header, .enter, .entry { animation: opening-controls 11.988498s linear both; }
+@keyframes opening-title {
+  0%, 8.341% { opacity: 0; }
+  8.341%, 25.024%, 33.365% { animation-timing-function: cubic-bezier(.5,0,.5,1); }
+  25.024%, 33.365% { opacity: 1; }
+  41.707%, 100% { opacity: 0; }
+}
+@keyframes opening-controls {
+  0%, 50.048% { opacity: 0; }
+  50.048% { animation-timing-function: cubic-bezier(.5,0,.5,1); }
+  58.389%, 100% { opacity: 1; }
+}
+.pc .opening-wordmark, .pc .opening-tagline { animation-name: pc-title; animation-duration: 9.980096s; }
+.pc .opening-copy, .pc .opening-header, .pc .enter, .pc .entry { animation-name: pc-controls; animation-duration: 9.980096s; }
+@keyframes pc-title {
+  0%, 10.02% { opacity: 0; }
+  10.02%, 30.06%, 40.08% { animation-timing-function: cubic-bezier(.5,0,.5,1); }
+  30.06%, 40.08% { opacity: 1; }
+  50.1%, 100% { opacity: 0; }
+}
+@keyframes pc-controls {
+  0%, 60.12% { opacity: 0; }
+  60.12% { animation-timing-function: cubic-bezier(.5,0,.5,1); }
+  70.14%, 100% { opacity: 1; }
+}
+.page-header { position: sticky; top: 0; height: 70px; margin-bottom: -70px; z-index: 5; color: #fff; pointer-events: none; }
+.page-header a, .page-header button { pointer-events: auto; }
+.header-logo { position: absolute; left: 11px; top: 5.6px; width: 109px; height: 57.4px; display: flex; align-items: center; font-size: 34px; font-weight: 500; }
+.hero { position: relative; height: 874px; color: #fff; overflow: hidden; }
+.hero-photo { position: absolute; top: 0; left: -236px; width: 874px; height: 874px; object-fit: cover; }
+.hero-heading { position: absolute; top: 763px; left: 24px; width: 354px; font-size: 36px; font-weight: 500; line-height: 43px; }
+.hero-subtitle { display: block; font-size: 24px; font-weight: 400; line-height: 29px; }
+.page-footer { position: relative; height: 50px; color: #fff; background: #000; font-size: 14px; font-weight: 500; }
+.page-footer p { position: absolute; top: 25px; left: 159px; white-space: nowrap; }
+.copy { font-size: 24px; line-height: 28.8px; font-weight: 400; }
+.copy p { margin: 0; }
+.placed { position: absolute; }
+.photo { object-fit: cover; }
+.more { position: absolute; height: 44px; width: 195px; font-size: 25px; font-weight: 500; }
+.more span { position: absolute; top: 0; left: 8px; line-height: 30px; }
+.more .underline { position: absolute; top: 28px; left: 0; }
+.more .arrow { left: 170px; top: 10px; }
+.page-backdrop { position: absolute; inset: 0; pointer-events: none; }
+.page-backdrop img { position: sticky; top: 0; width: 874px; height: 874px; margin-left: -236px; }
+.with-backdrop .hero-photo { visibility: hidden; }
+.top-about { position: relative; height: 996px; color: #fff; background: linear-gradient(rgb(0 0 0 / .5), rgb(0 0 0 / .8) 82.692%); }
+.section-title { font-size: 32px; font-weight: 500; line-height: 38px; }
+.top-archive { position: relative; height: 831px; background: #000; color: #fff; }
+.archive-copy { text-align: center; }
+.top-bottom { position: relative; height: 1314px; background: rgb(0 0 0 / .8); color: #fff; }
+.contact-preview { position: absolute; left: 24px; top: 862px; width: 354px; height: 352px; background: #000; border: 1px solid #fff; }
+.contact-link { top: 1146px; left: 117px; width: 237px; height: 55px; font-size: 36px; }
+.contact-link span { left: 10px; line-height: 43px; }
+.contact-link .underline { top: 42px; }
+.contact-link .arrow { left: 212px; top: 16px; }
+.about-body { position: relative; height: 1377px; background: rgb(0 0 0 / .5); color: #fff; }
+.archive-body { padding: 200px 24px; display: grid; gap: 100px; }
+.archive-item { display: block; height: 315px; }
+.archive-item img { width: 354px; height: 236px; object-fit: cover; }
+.archive-item p { margin-top: 50px; text-align: center; line-height: 29px; }
+.members { padding: 200px 24px 200px; display: grid; grid-template-columns: 154px 154px; column-gap: 46px; row-gap: 100px; }
+.member-button { width: 154px; height: 172px; }
+.member-button img { width: 154px; height: 118px; object-fit: cover; }
+.member-button span { display: block; margin-top: 25px; line-height: 29px; }
+.contact-body { padding: 200px 24px; }
+.contact-body h2 { font-size: 32px; font-weight: 700; line-height: 28px; margin-bottom: 50px; }
+.entry-list { display: grid; gap: 50px; }
+.entry-card { width: 354px; height: 179px; border: 1px solid #000; padding: 16px 12px 0; }
+.entry-card h3 { font-weight: 500; line-height: 28.8px; }
+.detail-body { position: relative; height: 3137px; }
+.detail-nav { position: absolute; left: 24px; top: 200px; width: 354px; display: flex; justify-content: space-between; font-size: 24px; line-height: 28px; }
+.detail-nav a { position: absolute; }
+.detail-nav a:nth-child(1) { left: 0; width: 53px; }
+.detail-nav a:nth-child(2) { left: 76px; width: 153px; text-align: center; }
+.detail-nav a:nth-child(3) { left: 225px; width: 129px; text-align: right; }
+.detail-nav-line { position: absolute; left: 23px; top: 233px; }
+.detail-section { position: absolute; left: 24px; width: 354px; height: 818px; scroll-margin-top: 80px; }
+.detail-section h2 { font-weight: 500; line-height: 28px; }
+.detail-section .first { position: absolute; top: 78px; }
+.detail-section img { position: absolute; top: 330px; width: 354px; height: 236px; object-fit: cover; }
+.detail-section .last { position: absolute; top: 616px; }
+dialog { padding: 0; border: 0; border-radius: 0; color: #000; background: #fff; max-width: none; max-height: none; overflow: visible; }
+dialog::backdrop { background: rgb(0 0 0 / .25); }
+dialog[open] { animation: overlay-in .3s ease-out; }
+@keyframes overlay-in { from { opacity: 0; } to { opacity: 1; } }
+#menu { width: calc(402px * var(--dialog-scale, 1)); height: calc(874px * var(--dialog-scale, 1)); margin: 0 auto; top: 0; overflow-y: auto; max-height: 100dvh; }
+.menu-frame { position: relative; width: 402px; height: 874px; zoom: var(--dialog-scale, 1); }
+.menu-close { position: absolute; top: 24px; left: 306px; line-height: 29px; }
+.menu-wordmark { position: absolute; top: 158px; left: 24px; color: #d9d9d9; font-size: 110px; line-height: 132px; font-weight: 700; }
+.menu-frame nav { position: absolute; top: 340px; left: 26px; display: grid; gap: 25px; font-size: 36px; line-height: 43px; }
+.menu-frame nav a:last-child { margin-left: -2px; }
+#profile { width: calc(358px * var(--dialog-scale, 1)); height: calc(328px * var(--dialog-scale, 1)); }
+.profile-frame { position: relative; width: 358px; height: 328px; zoom: var(--dialog-scale, 1); }
+.profile-close { position: absolute; top: 8px; left: 319px; width: 29px; height: 29px; background: #d9d9d9; }
+#profile-name { position: absolute; top: 37px; left: 37px; font-weight: 700; line-height: 31.838px; }
+.profile-line { position: absolute; top: 92.84px; left: 33px; }
+.profile-copy { position: absolute; top: 118.84px; left: 37px; width: 289px; font-weight: 700; line-height: 28.8px; }
+@media (prefers-reduced-motion: reduce) {
+  .opening-wordmark, .opening-tagline, .opening-copy, .opening-header, .entry, .enter, dialog[open] { animation: none !important; }
+}

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#000000">
+  <title>BAMP!</title>
+  <link rel="stylesheet" href="fonts.css">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <main id="site"></main>
+  <dialog id="menu" aria-label="メニュー">
+    <div class="menu-frame">
+      <button class="menu-close" data-close>-close</button>
+      <p class="menu-wordmark">BAMP!</p>
+      <nav aria-label="サイトナビゲーション">
+        <a href="#top">top</a>
+        <a href="#about">about us</a>
+        <a href="#archive">archive</a>
+        <a href="#member">member</a>
+        <a href="#contact">contact</a>
+      </nav>
+    </div>
+  </dialog>
+  <dialog id="profile" aria-labelledby="profile-name">
+    <div class="profile-frame">
+      <button class="profile-close" data-close aria-label="閉じる"></button>
+      <h2 id="profile-name">名前</h2>
+      <img class="profile-line" src="assets/c40a1.svg" alt="">
+      <p class="profile-copy">プロフィールプロフィールプロフィールプロフィールプロフィールプロフィールプロフィールプロフィールプロフィールプロフィールプロフィールプロフィール</p>
+    </div>
+  </dialog>
+</body>
+</html>
