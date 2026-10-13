@@ -23,9 +23,8 @@ function opening(pc) {
     ${image(pc ? 'bamp-87-294.svg' : 'bamp-5-5.svg', 'opening-wordmark', 'aria-label="BAMP!" role="img"')}
     ${image(pc ? 'bamp-87-295.svg' : 'bamp-5-6.svg', 'opening-tagline', 'aria-label="Bamboo → Action → Movement → Phenomenal!" role="img"')}
     <h1 class="opening-copy">熱狂の渦中へ、いざ。</h1>
-    <a href="#top" class="enter"><span class="enter-label">enter</span>${image(pc ? '2cac5.svg' : '20b3d.svg', 'enter-line')}${image(pc ? '6f79f.svg' : '9f1fc.svg', 'arrow')}</a>
+    <p class="enter"><span class="enter-label">準備中</span></p>
     <header class="opening-header">${pc ? image('bamp-87-304.svg', 'opening-small-logo', 'aria-label="BAMP!" role="img"') : ''}${toggle()}</header>
-    <a class="entry" href="#contact">${image('a92ab.svg')}<span>Entry</span></a>
   </div>`;
 }
 
