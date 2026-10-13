@@ -18,7 +18,7 @@ const more = (to, x, y, label = 'view more') => `<a class="more ${label === 'con
 
 function opening(pc) {
   return `<div class="frame opening ${pc ? 'pc' : ''}" data-figma-node="${pc ? '87:290' : '3:3'}">
-    <video class="opening-video" autoplay muted playsinline preload="auto" poster="assets/opening-poster.jpg"><source src="assets/opening.mp4" type="video/mp4"></video>
+    <video class="opening-video" ${matchMedia('(prefers-reduced-motion: reduce)').matches ? '' : 'autoplay'} muted playsinline preload="auto" poster="assets/opening-poster.jpg"><source src="assets/opening.mp4" type="video/mp4"></video>
     <div class="opening-shade"></div>
     ${image(pc ? 'bamp-87-294.svg' : 'bamp-5-5.svg', 'opening-wordmark', 'aria-label="BAMP!" role="img"')}
     ${image(pc ? 'bamp-87-295.svg' : 'bamp-5-6.svg', 'opening-tagline', 'aria-label="Bamboo → Action → Movement → Phenomenal!" role="img"')}
@@ -108,7 +108,7 @@ function render() {
     const video = site.querySelector('video');
     if (video) {
       video.muted = true;
-      if (matchMedia('(prefers-reduced-motion: reduce)').matches) video.removeAttribute('autoplay');
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) video.pause();
       else video.play().catch(() => { /* The original poster remains visible if autoplay is unavailable. */ });
     }
   }
