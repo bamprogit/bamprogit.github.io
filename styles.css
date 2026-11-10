@@ -166,6 +166,8 @@ dialog[open] { animation: overlay-in .3s ease-out; }
 #site[data-route="opening"] { height: 100dvh; overflow: clip; display: flex; align-items: center; justify-content: center; background: #000; }
 #site[data-route="opening"] .frame { flex: none; margin: 0; overflow: visible; }
 .form-frame { overflow: visible; }
+#site[data-route="form"] > .form-frame { width: clamp(402px, 100%, 1280px); }
+.form-frame .form-submit { max-width: 354px; }
 #site[data-route="form"] > .page-footer, #site[data-route="submitted"] > .page-footer { zoom: var(--page-scale, 1); }
 .form-field input, .form-field textarea { min-width: 0; }
 
