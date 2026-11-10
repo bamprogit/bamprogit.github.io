@@ -77,7 +77,7 @@ body:has(dialog[open]) { overflow: hidden; }
 .hero-heading { position: absolute; top: 763px; left: 24px; width: 354px; font-size: 36px; font-weight: 500; line-height: 43px; }
 .hero-subtitle { display: block; font-size: 24px; font-weight: 400; line-height: 29px; }
 .page-footer { position: relative; height: 50px; color: #fff; background: #000; font-size: 14px; font-weight: 500; }
-.page-footer p { position: absolute; top: 25px; left: 159px; white-space: nowrap; }
+.page-footer p { position: absolute; top: 25px; left: 0; width: 100%; text-align: center; white-space: nowrap; }
 .copy { font-size: 24px; line-height: 28.8px; font-weight: 400; }
 .copy p { margin: 0; }
 .placed { position: absolute; }

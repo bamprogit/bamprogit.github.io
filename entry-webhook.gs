@@ -24,8 +24,13 @@ function setup() {
   console.log('https://docs.google.com/spreadsheets/d/' + id + '/edit');
 }
 
-function parseSubmission(body) {
-  const data = JSON.parse(body).form_data;
+function parseSubmission(body, parameters = {}) {
+  let payload;
+  try { payload = JSON.parse(body); } catch (_) {
+    if (typeof parameters.form_data !== 'string') throw new Error('Invalid JSON payload');
+    payload = {form_data: parameters.form_data};
+  }
+  const data = typeof payload.form_data === 'string' ? JSON.parse(payload.form_data) : payload.form_data;
   if (!data || typeof data !== 'object' || Array.isArray(data)) throw new Error('Invalid payload');
   const fields = ['名前', 'email', '現所属', '生年月日', '電話番号', 'その他・備考', '受付ID'];
   const values = fields.map((key, index) => {
@@ -48,7 +53,9 @@ function doPost(event) {
   const lock = LockService.getScriptLock();
   try {
     if (!event || !event.postData || event.postData.contents.length > 24000) throw new Error('Invalid request');
-    const values = parseSubmission(event.postData.contents);
+    const properties = PropertiesService.getScriptProperties();
+    properties.setProperty('LAST_WEBHOOK_META', JSON.stringify({contentType: event.postData.type, parameterKeys: Object.keys(event.parameter || {})}));
+    const values = parseSubmission(event.postData.contents, event.parameter);
     lock.waitLock(20000);
     const id = PropertiesService.getScriptProperties().getProperty('SPREADSHEET_ID');
     if (!id) throw new Error('Not configured');
@@ -66,8 +73,10 @@ function doPost(event) {
     sheet.getRange(row, 1, 1, 8).setValues([[new Date(), ...safeValues]]);
     sheet.getRange(row, 1, 1, 8).setVerticalAlignment('top').setWrap(true);
     SpreadsheetApp.flush();
+    properties.setProperty('LAST_WEBHOOK_STATUS', 'Saved');
     return jsonOutput({ok: true});
   } catch (error) {
+    PropertiesService.getScriptProperties().setProperty('LAST_WEBHOOK_STATUS', error.message.slice(0, 200));
     console.error('Entry webhook failed: ' + error.message);
     return jsonOutput({ok: false});
   } finally {
@@ -77,4 +86,10 @@ function doPost(event) {
 
 function jsonOutput(value) {
   return ContentService.createTextOutput(JSON.stringify(value)).setMimeType(ContentService.MimeType.JSON);
+}
+
+function inspectIntegration() {
+  const properties = PropertiesService.getScriptProperties();
+  console.log(properties.getProperty('LAST_WEBHOOK_META'));
+  console.log(properties.getProperty('LAST_WEBHOOK_STATUS'));
 }
