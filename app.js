@@ -10,7 +10,6 @@ const position = (x, y, width, height) => `left:${x}px;top:${y}px;${width == nul
 const copy = (lines = longCopy, extra = '') => `<div class="copy ${extra}">${lines.map(line => `<p>${line}</p>`).join('')}</div>`;
 const placedCopy = (x, y, width, lines = longCopy, extra = '') => `<div class="placed ${extra}" style="${position(x, y, width)}">${copy(lines)}</div>`;
 const photo = (file, x, y, width, height = width) => image(file, 'placed photo', `style="${position(x, y, width, height)}"`);
-const openingHeaderLogo = { x: 38.689, y: 38.952 };
 const formHeader = () => `<header class="form-opening-header"><a href="#opening" aria-label="BAMP! トップ">${image('bamp-87-304.svg')}</a></header>`;
 const header = () => `<header class="page-header"><a href="#top" class="header-logo">BAMP!</a></header>`;
 const footer = () => '<footer class="page-footer"><p>©2026 BUMP!</p></footer>';
@@ -158,14 +157,13 @@ function scalePage() {
   const openingWidth = desktopOpening ? 1280 : 402;
   const openingHeight = desktopOpening ? 832 : 874;
   const openingScale = Math.min(viewportWidth / openingWidth, viewportHeight / openingHeight);
-  site.style.setProperty('--opening-logo-x', `${openingHeaderLogo.x}px`);
-  site.style.setProperty('--opening-logo-y', `${openingHeaderLogo.y}px`);
-  const logoX = (viewportWidth - openingWidth * openingScale) / 2 + openingHeaderLogo.x * openingScale;
-  const logoY = (viewportHeight - openingHeight * openingScale) / 2 + openingHeaderLogo.y * openingScale;
-  site.style.setProperty('--form-logo-x', `${logoX}px`);
-  site.style.setProperty('--form-logo-y', `${logoY}px`);
+  const logoInset = Math.min(39, Math.max(16, viewportWidth * .03));
+  site.style.setProperty('--opening-logo-x', `${logoInset / openingScale + (openingWidth - viewportWidth / openingScale) / 2}px`);
+  site.style.setProperty('--opening-logo-y', `${logoInset / openingScale + (openingHeight - viewportHeight / openingScale) / 2}px`);
+  site.style.setProperty('--form-logo-x', `${logoInset}px`);
+  site.style.setProperty('--form-logo-y', `${logoInset}px`);
   site.style.setProperty('--form-logo-scale', openingScale);
-  site.style.setProperty('--form-offset', `${Math.max(0, logoY + 25 * openingScale + 24 * scale - 110 * scale)}px`);
+  site.style.setProperty('--form-offset', `${Math.max(0, logoInset + 25 * openingScale + 24 * scale - 110 * scale)}px`);
   site.dataset.route = currentRoute;
   document.documentElement.style.setProperty('--dialog-scale', Math.min(viewportWidth / 402, viewportHeight / 328, 1));
 }
