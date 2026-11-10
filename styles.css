@@ -163,10 +163,3 @@ dialog[open] { animation: overlay-in .3s ease-out; }
 
 .form-complete { min-height: 1421px; }
 .form-complete a { text-decoration: underline; }
-
-.desktop-top { width: 1280px; height: 1805px; }
-.desktop-top-backdrop { position: absolute; inset: 0; pointer-events: none; }
-.desktop-top-backdrop img { position: sticky; top: 0; width: 1280px; height: 832px; object-fit: fill; object-position: bottom; }
-.desktop-top .page-header { height: 121px; margin-bottom: -121px; }
-.desktop-top .header-logo { left: 35.0249px; top: 8px; width: 347.0647px; height: 82px; font-size: 36px; }
-.desktop-top-heading { position: absolute; left: 35px; top: 720px; width: 906px; font-size: 56px; font-weight: 500; line-height: normal; color: #fff; }
