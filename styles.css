@@ -16,10 +16,10 @@ body:has(dialog[open]) { overflow: hidden; }
 .opening-wordmark, .opening-tagline, .opening-copy, .opening-header, .entry, .enter { position: absolute; }
 .opening-wordmark { top: 65.52px; left: 26.14px; }
 .opening-tagline { top: 794.792px; left: 24.6px; }
-.opening-copy { left: 24px; top: 434px; color: #ce0000; font-family: 'Sawarabi Mincho', serif; font-size: 36px; line-height: 53px; white-space: nowrap; }
+.opening-copy { left: 50%; transform: translateX(-50%); top: 434px; color: #ce0000; font-family: 'Sawarabi Mincho', serif; font-size: 36px; line-height: 53px; white-space: nowrap; }
 .pc .opening-wordmark { top: 70.4px; left: 64.8px; }
 .pc .opening-tagline { top: 745.584px; left: 291.84px; }
-.pc .opening-copy { left: 320px; top: 392px; font-size: 64px; line-height: 95px; }
+.pc .opening-copy { top: 392px; font-size: 64px; line-height: 95px; }
 .opening-header { inset: 0 0 auto; height: 70px; }
 .pc .opening-header { height: 100px; }
 .opening-small-logo { position: absolute; left: var(--opening-logo-x); top: var(--opening-logo-y); }
@@ -33,14 +33,13 @@ body:has(dialog[open]) { overflow: hidden; }
 .entry { top: 60px; left: 18px; width: 88px; height: 88px; font-family: 'Inter', sans-serif; font-size: 16px; line-height: 19.36px; color: #000; }
 .entry span { position: absolute; left: 22px; top: 34px; }
 .pc .entry { left: 36px; top: 116px; }
-.enter { left: 117px; top: 674px; width: 168px; height: 42px; font-weight: 500; }
-.enter-label { position: absolute; top: 0; left: 8px; line-height: 29px; }
-.opening:not(.pc) .enter-label { left: 0; width: 100%; text-align: center; }
+.enter { left: 50%; transform: translateX(-50%); top: 674px; width: 168px; height: 42px; font-weight: 500; }
+.enter-label { position: absolute; top: 0; left: 0; width: 100%; text-align: center; line-height: 29px; }
 .enter-line { position: absolute; left: 0; top: 27px; }
 .arrow { position: absolute; transform: rotate(90.94deg); transform-origin: center; }
 .enter .arrow { left: 145px; top: 9px; }
-.pc .enter { left: 534px; top: 624px; width: 213px; height: 62px; font-size: 48px; }
-.pc .enter-label { left: 6px; line-height: 58px; }
+.pc .enter { top: 624px; width: 213px; height: 62px; font-size: 48px; }
+.pc .enter-label { line-height: 58px; }
 .pc .enter-line { top: 56px; }
 .pc .enter .arrow { left: 174px; top: 18px; }
 .opening-wordmark, .opening-tagline { animation: opening-title 11.988498s linear both; }
