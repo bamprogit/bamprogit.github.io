@@ -180,3 +180,5 @@ dialog[open] { animation: overlay-in .3s ease-out; }
 .opening .opening-video { object-fit: cover; object-position: center; }
 
 .opening-play { position: absolute; z-index: 1; left: 50%; top: 62%; transform: translateX(-50%); min-height: 44px; padding: 8px 16px; border: 1px solid #fff; background: rgb(0 0 0 / .78); color: #fff; font-size: 18px; white-space: nowrap; }
+
+.entry-transition { position: fixed; inset: 0; z-index: 100; background: #000; }

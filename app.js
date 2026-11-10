@@ -221,6 +221,40 @@ function render() {
   if (anchor && route === 'detail') requestAnimationFrame(() => document.getElementById(anchor)?.scrollIntoView());
 }
 
+let entryTransitionActive = false;
+document.addEventListener('click', async event => {
+  const entryLink = event.target.closest('.opening a.enter');
+  if (!entryLink || event.defaultPrevented || event.button !== 0 ||
+      event.metaKey || event.ctrlKey || event.shiftKey || event.altKey ||
+      matchMedia('(prefers-reduced-motion: reduce)').matches ||
+      typeof Element.prototype.animate !== 'function') return;
+
+  event.preventDefault();
+  if (entryTransitionActive) return;
+  entryTransitionActive = true;
+  const previousHash = location.hash;
+  const veil = document.createElement('div');
+  veil.className = 'entry-transition';
+  veil.setAttribute('aria-hidden', 'true');
+  document.body.append(veil);
+
+  try {
+    await veil.animate({opacity: [0, 1]}, {duration: 510, easing: 'ease-in-out', fill: 'forwards'}).finished;
+    if (location.hash !== previousHash) return;
+    location.hash = entryLink.hash;
+    render();
+    const title = site.querySelector('#form-title');
+    if (title) {
+      title.tabIndex = -1;
+      title.focus({preventScroll: true});
+    }
+    await veil.animate({opacity: [1, 0]}, {duration: 590, easing: 'ease-in-out', fill: 'forwards'}).finished;
+  } finally {
+    veil.remove();
+    entryTransitionActive = false;
+  }
+});
+
 document.addEventListener('click', event => {
   const trigger = event.target.closest('[data-menu], [data-profile], [data-close]');
   if (!trigger) return;
