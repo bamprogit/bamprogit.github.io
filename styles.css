@@ -15,10 +15,9 @@ body:has(dialog[open]) { overflow: hidden; }
 .opening-shade { position: absolute; inset: 0; background: rgb(0 0 0 / .4); pointer-events: none; }
 .opening-wordmark, .opening-tagline, .opening-copy, .opening-header, .entry, .enter { position: absolute; }
 .opening-wordmark { --wordmark-inset: max(65.52px, calc(var(--opening-logo-inset) + 31px)); top: calc(var(--opening-bleed-y) + var(--wordmark-inset) - 1px); left: calc(var(--opening-bleed-x) + var(--wordmark-inset)); }
-.opening-tagline { top: 794.792px; left: 24.6px; }
+.opening-tagline { right: calc(var(--opening-bleed-x) + var(--opening-logo-inset)); bottom: calc(var(--opening-bleed-y) + var(--opening-logo-inset)); }
 .opening-copy { left: 50%; transform: translateX(-50%); top: 434px; color: #ce0000; font-family: 'Sawarabi Mincho', serif; font-size: 36px; line-height: 53px; white-space: nowrap; }
 .pc .opening-wordmark { --wordmark-inset: max(70.4px, calc(var(--opening-logo-inset) + 31px)); }
-.pc .opening-tagline { top: 745.584px; left: 291.84px; }
 .pc .opening-copy { top: 392px; font-size: 64px; line-height: 95px; }
 .opening-header { inset: 0 0 auto; height: 70px; }
 .pc .opening-header { height: 100px; }
