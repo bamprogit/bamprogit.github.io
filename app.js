@@ -4,7 +4,7 @@ const profile = document.querySelector('#profile');
 const text = 'テキスト';
 const longCopy = [text.repeat(6), text.repeat(4), text.repeat(8)];
 const shortCopy = [text.repeat(6), text.repeat(4), text.repeat(5)];
-const routes = new Set(['opening', 'top', 'about', 'archive', 'detail', 'member', 'contact']);
+const routes = new Set(['opening', 'top', 'about', 'archive', 'detail', 'member', 'contact', 'form', 'submitted']);
 const image = (file, className = '', attributes = '') => `<img src="assets/${file}" alt="" class="${className}" ${attributes}>`;
 const position = (x, y, width, height) => `left:${x}px;top:${y}px;${width == null ? '' : `width:${width}px;`}${height == null ? '' : `height:${height}px;`}`;
 const copy = (lines = longCopy, extra = '') => `<div class="copy ${extra}">${lines.map(line => `<p>${line}</p>`).join('')}</div>`;
@@ -22,7 +22,7 @@ function opening(pc) {
     ${image(pc ? 'bamp-87-294.svg' : 'bamp-5-5.svg', 'opening-wordmark', 'aria-label="BAMP!" role="img"')}
     ${image(pc ? 'bamp-87-295.svg' : 'bamp-5-6.svg', 'opening-tagline', 'aria-label="Bamboo → Action → Movement → Phenomenal!" role="img"')}
     <h1 class="opening-copy">熱狂の渦中へ、いざ。</h1>
-    <p class="enter"><span class="enter-label">準備中</span></p>
+    <a class="enter" href="#form"><span class="enter-label">entry</span></a>
     <header class="opening-header">${pc ? image('bamp-87-304.svg', 'opening-small-logo', 'aria-label="BAMP!" role="img"') : ''}</header>
   </div>`;
 }
@@ -74,17 +74,74 @@ function contact() {
   return `${hero('b5ba9.png', 'cantact')}<section class="contact-body"><h2>エントリー一覧</h2><div class="entry-list">${Array.from({length: 4}, () => `<article class="entry-card"><h3>演出</h3>${copy([text.repeat(11)])}</article>`).join('')}</div></section>`;
 }
 
+function form() {
+  const fields = [
+    ['name', '名前', 'text', '例）竹田　取太郎', 'name', true],
+    ['email', 'メールアドレス', 'email', '例）test@example.com', 'email', true],
+    ['affiliation', '現所属', 'text', '例）竹大学竹学部7年', 'organization', true],
+    ['birthday', '生年月日', 'text', '例）2000/07/07', 'bday', true],
+    ['phone', '電話番号', 'tel', '例）080-7777-7777', 'tel', false],
+  ];
+  return `<section class="form-page" aria-labelledby="form-title">
+    <h1 id="form-title">エントリー</h1>
+    <form id="entry-form" action="https://formsubmit.co/bampro200@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="BAMP! エントリー">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_next" value="https://bamprogit.github.io/#submitted">
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" hidden>
+      ${fields.map(([id, label, type, placeholder, autocomplete, required]) => `<div class="form-field"><label for="${id}">${label}${required ? '<span class="required">必須</span>' : ''}</label><input id="${id}" name="${id === 'email' ? 'email' : label}" type="${type}" placeholder="${placeholder}" autocomplete="${autocomplete}" maxlength="${id === 'birthday' ? 10 : 254}" ${required ? 'required' : ''}></div>`).join('')}
+      <div class="form-field"><label for="remarks">その他・備考</label><textarea id="remarks" name="その他・備考" placeholder="ご自由にご記入ください" maxlength="5000"></textarea></div>
+      <button class="form-submit" type="submit"><span>送信する</span>${image('6f79f.svg', 'arrow')}</button>
+      <p class="form-status" role="status" hidden></p>
+    </form>
+  </section>`;
+}
+
+function submitted() {
+  return '<section class="form-page form-complete"><h1>送信しました</h1><a href="#opening">BAMP!</a></section>';
+}
+
+function validateBirthday(input) {
+  const match = /^(\d{4})[/-](\d{1,2})[/-](\d{1,2})$/.exec(input.value.trim());
+  let valid = false;
+  if (match) {
+    const [, year, month, day] = match.map(Number);
+    const date = new Date(year, month - 1, day);
+    valid = year >= 1000 && date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day && date <= new Date();
+  }
+  input.setCustomValidity(valid || !input.value ? '' : '生年月日を年/月/日で入力してください。');
+}
+site.addEventListener('input', event => {
+  if (event.target.id === 'birthday') validateBirthday(event.target);
+});
+site.addEventListener('submit', event => {
+  if (event.target.id !== 'entry-form') return;
+  const form = event.target;
+  for (const input of form.querySelectorAll('input[required]')) {
+    input.value = input.value.trim();
+  }
+  validateBirthday(form.querySelector('#birthday'));
+  if (!form.reportValidity()) { event.preventDefault(); return; }
+  const button = form.querySelector('.form-submit');
+  button.disabled = true;
+  button.querySelector('span').textContent = '送信中';
+});
+addEventListener('pageshow', () => {
+  const button = document.querySelector('.form-submit');
+  if (button) { button.disabled = false; button.querySelector('span').textContent = '送信する'; }
+});
+
 let currentRoute;
 let currentPC;
 let opener;
-const pageFunctions = {top, about, archive, detail, member, contact};
-const nodeIds = {top: '17:216', about: '26:468', archive: '26:519', detail: '26:539', member: '26:583', contact: '34:637'};
+const pageFunctions = {top, about, archive, detail, member, contact, form, submitted};
+const nodeIds = {top: '17:216', about: '26:468', archive: '26:519', detail: '26:539', member: '26:583', contact: '34:637', form: '302:2', submitted: '302:2'};
 
 function scalePage() {
   const width = currentRoute === 'opening' && currentPC ? 1280 : 402;
-  const scale = currentRoute === 'opening' && currentPC ? innerWidth / width : Math.min(innerWidth / width, 1);
+  const scale = currentRoute === 'opening' && currentPC ? document.documentElement.clientWidth / width : Math.min(document.documentElement.clientWidth / width, 1);
   site.style.setProperty('--page-scale', scale);
-  document.documentElement.style.setProperty('--dialog-scale', Math.min(innerWidth / 402, 1));
+  document.documentElement.style.setProperty('--dialog-scale', Math.min(document.documentElement.clientWidth / 402, 1));
 }
 
 function closeDialogs() {
@@ -94,13 +151,13 @@ function closeDialogs() {
 function render() {
   const [requested, anchor] = location.hash.slice(1).split('/');
   const route = routes.has(requested) ? requested : 'opening';
-  const pc = innerWidth >= 900;
+  const pc = document.documentElement.clientWidth >= 900;
   closeDialogs();
   if (route !== currentRoute || (route === 'opening' && currentPC !== pc)) {
     currentRoute = route;
     currentPC = pc;
     const backdrop = route === 'top' ? '1f111.png' : route === 'about' ? '85e3e.png' : null;
-    site.innerHTML = route === 'opening' ? opening(pc) : `<div class="frame ${backdrop ? 'with-backdrop' : ''}" data-figma-node="${nodeIds[route]}">${backdrop ? `<div class="page-backdrop">${image(backdrop)}</div>` : ''}${header()}${pageFunctions[route]()}${footer()}</div>`;
+    site.innerHTML = route === 'opening' ? opening(pc) : `<div class="frame ${(route === 'form' || route === 'submitted') ? 'form-frame' : ''} ${backdrop ? 'with-backdrop' : ''}" data-figma-node="${nodeIds[route]}">${backdrop ? `<div class="page-backdrop">${image(backdrop)}</div>` : ''}${(route === 'form' || route === 'submitted') ? header().replace('#top', '#opening') : header()}${pageFunctions[route]()}${footer()}</div>`;
     document.title = route === 'opening' || route === 'top' ? 'BAMP!' : `${route === 'detail' ? 'archive' : route} | BAMP!`;
     window.scrollTo(0, 0);
     const video = site.querySelector('video');
@@ -137,7 +194,7 @@ menu.addEventListener('click', event => {
 });
 addEventListener('hashchange', render);
 addEventListener('resize', () => {
-  if (currentRoute === 'opening' && currentPC !== (innerWidth >= 900)) render();
+  if (currentRoute === 'opening' && currentPC !== (document.documentElement.clientWidth >= 900)) render();
   else scalePage();
 });
 render();
