@@ -22,7 +22,7 @@ function opening(pc) {
     <div class="opening-shade"></div>
     <button class="opening-play" type="button" aria-label="オープニング動画を再生" hidden>動画を再生</button>
     ${image(pc ? 'bamp-87-294.svg' : 'bamp-5-5.svg', 'opening-wordmark', 'aria-label="BAMP!" role="img"')}
-    ${image(pc ? 'bamp-87-295.svg' : 'bamp-5-6.svg', 'opening-tagline', 'aria-label="Bamboo → Action → Movement → Phenomenal!" role="img"')}
+    ${image('bamp-87-295.svg', 'opening-tagline', 'aria-label="Bamboo → Action → Movement → Phenomenal!" role="img"')}
     <h1 class="opening-copy">熱狂の渦中へ、いざ。</h1>
     <a class="enter" href="#form"><span class="enter-label">entry</span></a>
     <header class="opening-header">${image('bamp-87-304.svg', 'opening-small-logo', 'aria-label="BAMP!" role="img"')}</header>
