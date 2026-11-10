@@ -171,8 +171,8 @@ dialog[open] { animation: overlay-in .3s ease-out; }
 #site[data-route="form"] > .page-footer, #site[data-route="submitted"] > .page-footer { zoom: var(--page-scale, 1); }
 .form-field input, .form-field textarea { min-width: 0; }
 
-.form-opening-header { position: fixed; left: var(--form-logo-x); top: var(--form-logo-y); z-index: 5; }
-.form-opening-header a { display: block; width: 100px; height: 25px; background: #fff; box-shadow: 0 0 0 4px #fff; transform: scale(var(--form-logo-scale)); transform-origin: top left; }
+.form-opening-header { position: fixed; inset: 0 0 auto; height: calc(var(--form-logo-y) + 25px * var(--form-logo-scale) + 12px); z-index: 5; background: #fff; }
+.form-opening-header a { position: absolute; left: var(--form-logo-x); top: var(--form-logo-y); display: block; width: 100px; height: 25px; transform: scale(var(--form-logo-scale)); transform-origin: top left; }
 .form-opening-header img { filter: brightness(0); }
 .form-frame { margin-top: var(--form-offset, 0px); }
 
