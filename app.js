@@ -208,7 +208,8 @@ function render() {
     currentRoute = route;
     currentPC = pc;
     const backdrop = route === 'top' ? '1f111.png' : route === 'about' ? '85e3e.png' : null;
-    site.innerHTML = route === 'opening' ? opening(pc) : `${(route === 'form' || route === 'submitted') ? formHeader() : ''}<div class="frame ${(route === 'form' || route === 'submitted') ? 'form-frame' : ''} ${backdrop ? 'with-backdrop' : ''}" data-figma-node="${nodeIds[route]}">${backdrop ? `<div class="page-backdrop">${image(backdrop)}</div>` : ''}${(route === 'form' || route === 'submitted') ? '' : header()}${pageFunctions[route]()}${footer()}</div>`;
+    const formRoute = route === 'form' || route === 'submitted';
+    site.innerHTML = route === 'opening' ? opening(pc) : `${formRoute ? formHeader() : ''}<div class="frame ${formRoute ? 'form-frame' : ''} ${backdrop ? 'with-backdrop' : ''}" data-figma-node="${nodeIds[route]}">${backdrop ? `<div class="page-backdrop">${image(backdrop)}</div>` : ''}${formRoute ? '' : header()}${pageFunctions[route]()}${formRoute ? '' : footer()}</div>${formRoute ? footer() : ''}`;
     document.title = route === 'opening' || route === 'top' ? 'BAMP!' : `${route === 'detail' ? 'archive' : route} | BAMP!`;
     window.scrollTo(0, 0);
     scalePage();
