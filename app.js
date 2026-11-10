@@ -18,8 +18,9 @@ const more = (to, x, y, label = 'view more') => `<a class="more ${label === 'con
 
 function opening(pc) {
   return `<div class="frame opening ${pc ? 'pc' : ''}" data-figma-node="${pc ? '87:290' : '3:3'}">
-    <video class="opening-video" ${matchMedia('(prefers-reduced-motion: reduce)').matches ? '' : 'autoplay'} muted playsinline preload="auto" poster="assets/opening-home-poster.jpg"><source src="assets/opening-home.mp4" type="video/mp4"></video>
+    <video class="opening-video" ${matchMedia('(prefers-reduced-motion: reduce)').matches ? '' : 'autoplay'} muted playsinline preload="auto" poster="assets/opening-home-poster.jpg" src="assets/opening-home.mp4"></video>
     <div class="opening-shade"></div>
+    <button class="opening-play" type="button" aria-label="オープニング動画を再生" hidden>動画を再生</button>
     ${image(pc ? 'bamp-87-294.svg' : 'bamp-5-5.svg', 'opening-wordmark', 'aria-label="BAMP!" role="img"')}
     ${image(pc ? 'bamp-87-295.svg' : 'bamp-5-6.svg', 'opening-tagline', 'aria-label="Bamboo → Action → Movement → Phenomenal!" role="img"')}
     <h1 class="opening-copy">熱狂の渦中へ、いざ。</h1>
@@ -172,6 +173,31 @@ function closeDialogs() {
   for (const dialog of [menu, profile]) if (dialog.open) dialog.close();
 }
 
+function startOpeningPlayback(video) {
+  const button = site.querySelector('.opening-play');
+  let fallbackTimer;
+  const showPlayButton = () => { button.hidden = false; };
+  const play = () => {
+    clearTimeout(fallbackTimer);
+    fallbackTimer = setTimeout(() => {
+      if (video.paused || video.currentTime === 0) showPlayButton();
+    }, 3000);
+    video.play().catch(showPlayButton);
+  };
+
+  video.addEventListener('playing', () => {
+    clearTimeout(fallbackTimer);
+    button.hidden = true;
+  });
+  video.addEventListener('error', showPlayButton);
+  video.addEventListener('pause', () => {
+    if (!video.ended) showPlayButton();
+  });
+  button.addEventListener('click', play);
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) showPlayButton();
+  else play();
+}
+
 function render() {
   const [requested, anchor] = location.hash.slice(1).split('/');
   const route = routes.has(requested) ? requested : 'opening';
@@ -184,14 +210,12 @@ function render() {
     site.innerHTML = route === 'opening' ? opening(pc) : `${(route === 'form' || route === 'submitted') ? formHeader() : ''}<div class="frame ${(route === 'form' || route === 'submitted') ? 'form-frame' : ''} ${backdrop ? 'with-backdrop' : ''}" data-figma-node="${nodeIds[route]}">${backdrop ? `<div class="page-backdrop">${image(backdrop)}</div>` : ''}${(route === 'form' || route === 'submitted') ? '' : header()}${pageFunctions[route]()}${footer()}</div>`;
     document.title = route === 'opening' || route === 'top' ? 'BAMP!' : `${route === 'detail' ? 'archive' : route} | BAMP!`;
     window.scrollTo(0, 0);
-    const video = site.querySelector('video');
-    if (video) {
-      video.muted = true;
-      if (matchMedia('(prefers-reduced-motion: reduce)').matches) video.pause();
-      else video.play().catch(() => { /* The original poster remains visible if autoplay is unavailable. */ });
-    }
+    scalePage();
+    const video = site.querySelector('.opening-video');
+    if (video) startOpeningPlayback(video);
+  } else {
+    scalePage();
   }
-  scalePage();
   if (anchor && route === 'detail') requestAnimationFrame(() => document.getElementById(anchor)?.scrollIntoView());
 }
 

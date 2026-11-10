@@ -12,7 +12,7 @@ body:has(dialog[open]) { overflow: hidden; }
 .opening.pc { width: 1280px; height: 832px; }
 .opening-video { position: absolute; top: 0; left: -749px; width: 1888px; height: 874px; object-fit: fill; }
 .pc .opening-video { top: -21px; left: -378px; }
-.opening-shade { position: absolute; inset: 0; background: rgb(0 0 0 / .4); }
+.opening-shade { position: absolute; inset: 0; background: rgb(0 0 0 / .4); pointer-events: none; }
 .opening-wordmark, .opening-tagline, .opening-copy, .opening-header, .entry, .enter { position: absolute; }
 .opening-wordmark { top: 65.52px; left: 26.14px; }
 .opening-tagline { top: 794.792px; left: 24.6px; }
@@ -176,3 +176,5 @@ dialog[open] { animation: overlay-in .3s ease-out; }
 
 .opening .opening-video, .opening .opening-shade { left: var(--opening-bleed-x); top: var(--opening-bleed-y); right: auto; bottom: auto; width: var(--opening-screen-width); height: var(--opening-screen-height); }
 .opening .opening-video { object-fit: cover; object-position: center; }
+
+.opening-play { position: absolute; z-index: 1; left: 50%; top: 62%; transform: translateX(-50%); min-height: 44px; padding: 8px 16px; border: 1px solid #fff; background: rgb(0 0 0 / .78); color: #fff; font-size: 18px; white-space: nowrap; }
