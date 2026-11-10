@@ -149,6 +149,10 @@ function scalePage() {
     ? Math.min(viewportWidth / width, viewportHeight / height)
     : Math.min(viewportWidth / width, 1);
   site.style.setProperty('--page-scale', scale);
+  site.style.setProperty('--opening-screen-width', `${viewportWidth / scale}px`);
+  site.style.setProperty('--opening-screen-height', `${viewportHeight / scale}px`);
+  site.style.setProperty('--opening-bleed-x', `${(width - viewportWidth / scale) / 2}px`);
+  site.style.setProperty('--opening-bleed-y', `${(height - viewportHeight / scale) / 2}px`);
   const desktopOpening = viewportWidth >= 900;
   const openingWidth = desktopOpening ? 1280 : 402;
   const openingHeight = desktopOpening ? 832 : 874;

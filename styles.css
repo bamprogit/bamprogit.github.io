@@ -164,8 +164,8 @@ dialog[open] { animation: overlay-in .3s ease-out; }
 .form-complete { min-height: 1421px; }
 .form-complete a { text-decoration: underline; }
 
-#site[data-route="opening"] { min-height: 100dvh; display: flex; align-items: center; justify-content: center; background: #000; }
-#site[data-route="opening"] .frame { flex: none; margin: 0; }
+#site[data-route="opening"] { height: 100dvh; overflow: clip; display: flex; align-items: center; justify-content: center; background: #000; }
+#site[data-route="opening"] .frame { flex: none; margin: 0; overflow: visible; }
 .form-frame { overflow: visible; }
 .form-field input, .form-field textarea { min-width: 0; }
 
@@ -173,3 +173,6 @@ dialog[open] { animation: overlay-in .3s ease-out; }
 .form-opening-header a { display: block; width: 100px; height: 25px; transform: scale(var(--form-logo-scale)); transform-origin: top left; }
 .form-opening-header img { filter: brightness(0); }
 .form-frame { margin-top: var(--form-offset, 0px); }
+
+.opening .opening-video, .opening .opening-shade { left: var(--opening-bleed-x); top: var(--opening-bleed-y); right: auto; bottom: auto; width: var(--opening-screen-width); height: var(--opening-screen-height); }
+.opening .opening-video { object-fit: cover; object-position: center; }
