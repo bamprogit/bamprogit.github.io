@@ -27,6 +27,10 @@ function opening(pc) {
   </div>`;
 }
 
+function desktopTop() {
+  return `<div class="frame desktop-top" data-figma-node="127:23"><div class="desktop-top-backdrop">${image('desktop-top.png')}</div>${header()}<h1 class="desktop-top-heading">キャッチコピキャッチコピーキャ</h1></div>`;
+}
+
 function top() {
   return `${hero('1f111.png', 'キャッチコピー', 'キャッチコピーキャ').replace('class="hero-subtitle"', 'class="hero-subtitle" style="font-size:36px;font-weight:500;line-height:43px"')}
     <section class="top-about">
@@ -140,8 +144,9 @@ const pageFunctions = {top, about, archive, detail, member, contact, form, submi
 const nodeIds = {top: '17:216', about: '26:468', archive: '26:519', detail: '26:539', member: '26:583', contact: '34:637', form: '302:2', submitted: '302:2'};
 
 function scalePage() {
-  const width = currentRoute === 'opening' && currentPC ? 1280 : 402;
-  const scale = currentRoute === 'opening' && currentPC ? document.documentElement.clientWidth / width : Math.min(document.documentElement.clientWidth / width, 1);
+  const desktop = ['opening', 'top'].includes(currentRoute) && currentPC;
+  const width = desktop ? 1280 : 402;
+  const scale = desktop ? document.documentElement.clientWidth / width : Math.min(document.documentElement.clientWidth / width, 1);
   site.style.setProperty('--page-scale', scale);
   document.documentElement.style.setProperty('--dialog-scale', Math.min(document.documentElement.clientWidth / 402, 1));
 }
@@ -155,11 +160,11 @@ function render() {
   const route = routes.has(requested) ? requested : 'opening';
   const pc = document.documentElement.clientWidth >= 900;
   closeDialogs();
-  if (route !== currentRoute || (route === 'opening' && currentPC !== pc)) {
+  if (route !== currentRoute || (['opening', 'top'].includes(route) && currentPC !== pc)) {
     currentRoute = route;
     currentPC = pc;
     const backdrop = route === 'top' ? '1f111.png' : route === 'about' ? '85e3e.png' : null;
-    site.innerHTML = route === 'opening' ? opening(pc) : `<div class="frame ${(route === 'form' || route === 'submitted') ? 'form-frame' : ''} ${backdrop ? 'with-backdrop' : ''}" data-figma-node="${nodeIds[route]}">${backdrop ? `<div class="page-backdrop">${image(backdrop)}</div>` : ''}${(route === 'form' || route === 'submitted') ? header().replace('#top', '#opening') : header()}${pageFunctions[route]()}${footer()}</div>`;
+    site.innerHTML = route === 'opening' ? opening(pc) : route === 'top' && pc ? desktopTop() : `<div class="frame ${(route === 'form' || route === 'submitted') ? 'form-frame' : ''} ${backdrop ? 'with-backdrop' : ''}" data-figma-node="${nodeIds[route]}">${backdrop ? `<div class="page-backdrop">${image(backdrop)}</div>` : ''}${(route === 'form' || route === 'submitted') ? header().replace('#top', '#opening') : header()}${pageFunctions[route]()}${footer()}</div>`;
     document.title = route === 'opening' || route === 'top' ? 'BAMP!' : `${route === 'detail' ? 'archive' : route} | BAMP!`;
     window.scrollTo(0, 0);
     const video = site.querySelector('video');
@@ -196,7 +201,7 @@ menu.addEventListener('click', event => {
 });
 addEventListener('hashchange', render);
 addEventListener('resize', () => {
-  if (currentRoute === 'opening' && currentPC !== (document.documentElement.clientWidth >= 900)) render();
+  if (['opening', 'top'].includes(currentRoute) && currentPC !== (document.documentElement.clientWidth >= 900)) render();
   else scalePage();
 });
 render();
