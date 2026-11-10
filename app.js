@@ -10,6 +10,7 @@ const position = (x, y, width, height) => `left:${x}px;top:${y}px;${width == nul
 const copy = (lines = longCopy, extra = '') => `<div class="copy ${extra}">${lines.map(line => `<p>${line}</p>`).join('')}</div>`;
 const placedCopy = (x, y, width, lines = longCopy, extra = '') => `<div class="placed ${extra}" style="${position(x, y, width)}">${copy(lines)}</div>`;
 const photo = (file, x, y, width, height = width) => image(file, 'placed photo', `style="${position(x, y, width, height)}"`);
+const formHeader = () => `<header class="form-opening-header"><a href="#opening" aria-label="BAMP! トップ">${image('bamp-87-304.svg')}</a></header>`;
 const header = () => `<header class="page-header"><a href="#top" class="header-logo">BAMP!</a></header>`;
 const footer = () => '<footer class="page-footer"><p>©2026 BUMP!</p></footer>';
 const hero = (file, title, subtitle = 'テキストテキスト') => `<section class="hero">${image(file, 'hero-photo')}<h1 class="hero-heading">${title}<span class="hero-subtitle">${subtitle}</span></h1></section>`;
@@ -140,10 +141,26 @@ const pageFunctions = {top, about, archive, detail, member, contact, form, submi
 const nodeIds = {top: '17:216', about: '26:468', archive: '26:519', detail: '26:539', member: '26:583', contact: '34:637', form: '302:2', submitted: '302:2'};
 
 function scalePage() {
+  const viewportWidth = document.documentElement.clientWidth;
+  const viewportHeight = document.documentElement.clientHeight;
   const width = currentRoute === 'opening' && currentPC ? 1280 : 402;
-  const scale = currentRoute === 'opening' && currentPC ? document.documentElement.clientWidth / width : Math.min(document.documentElement.clientWidth / width, 1);
+  const height = currentPC ? 832 : 874;
+  const scale = currentRoute === 'opening'
+    ? Math.min(viewportWidth / width, viewportHeight / height)
+    : Math.min(viewportWidth / width, 1);
   site.style.setProperty('--page-scale', scale);
-  document.documentElement.style.setProperty('--dialog-scale', Math.min(document.documentElement.clientWidth / 402, 1));
+  const desktopOpening = viewportWidth >= 900;
+  const openingWidth = desktopOpening ? 1280 : 402;
+  const openingHeight = desktopOpening ? 832 : 874;
+  const openingScale = Math.min(viewportWidth / openingWidth, viewportHeight / openingHeight);
+  const logoX = (viewportWidth - openingWidth * openingScale) / 2 + (desktopOpening ? 38.689 : 26.14) * openingScale;
+  const logoY = (viewportHeight - openingHeight * openingScale) / 2 + (desktopOpening ? 38.952 : 65.52) * openingScale;
+  site.style.setProperty('--form-logo-x', `${logoX}px`);
+  site.style.setProperty('--form-logo-y', `${logoY}px`);
+  site.style.setProperty('--form-logo-scale', openingScale);
+  site.style.setProperty('--form-offset', `${Math.max(0, logoY + 25 * openingScale + 24 * scale - 110 * scale)}px`);
+  site.dataset.route = currentRoute;
+  document.documentElement.style.setProperty('--dialog-scale', Math.min(viewportWidth / 402, viewportHeight / 328, 1));
 }
 
 function closeDialogs() {
@@ -159,7 +176,7 @@ function render() {
     currentRoute = route;
     currentPC = pc;
     const backdrop = route === 'top' ? '1f111.png' : route === 'about' ? '85e3e.png' : null;
-    site.innerHTML = route === 'opening' ? opening(pc) : `<div class="frame ${(route === 'form' || route === 'submitted') ? 'form-frame' : ''} ${backdrop ? 'with-backdrop' : ''}" data-figma-node="${nodeIds[route]}">${backdrop ? `<div class="page-backdrop">${image(backdrop)}</div>` : ''}${(route === 'form' || route === 'submitted') ? header().replace('#top', '#opening') : header()}${pageFunctions[route]()}${footer()}</div>`;
+    site.innerHTML = route === 'opening' ? opening(pc) : `${(route === 'form' || route === 'submitted') ? formHeader() : ''}<div class="frame ${(route === 'form' || route === 'submitted') ? 'form-frame' : ''} ${backdrop ? 'with-backdrop' : ''}" data-figma-node="${nodeIds[route]}">${backdrop ? `<div class="page-backdrop">${image(backdrop)}</div>` : ''}${(route === 'form' || route === 'submitted') ? '' : header()}${pageFunctions[route]()}${footer()}</div>`;
     document.title = route === 'opening' || route === 'top' ? 'BAMP!' : `${route === 'detail' ? 'archive' : route} | BAMP!`;
     window.scrollTo(0, 0);
     const video = site.querySelector('video');
