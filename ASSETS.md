@@ -15,6 +15,17 @@
 - `bamp-*.svg`: ファイル名のノード番号の文字をFigmaからSVGで直接書き出し。Adobe Cleanの文字形を保ち、フォントファイル自体は同梱していない。
 - `opening.mp4`: 元の.figに含まれる動画をそのまま抽出。`opening-poster.jpg`は同じ動画の0秒フレーム。
 
+## オープニングの差し替え（2026-11-10）
+
+PC_top・opening共通で、本人提供の `/Users/aaa/Downloads/home.mp4` を使用。元ファイルのSHA-256は `246813f2ecc2c8a4469aeb9169067ec8aeb1553ad2e265f5aca44183e734713d`。元の `opening.mp4` とポスターはFigma版の素材で、現在の入口からは参照しない。
+
+公開用は1280×720のH.264 MP4（色調・時間・30fpsを維持）。サイトの無音再生に合わせて音声を除き、先頭フレームをポスターにする。再生成する場合はプロジェクト直下で実行する。
+
+```sh
+ffmpeg -i /Users/aaa/Downloads/home.mp4 -map 0:v:0 -an -vf scale=1280:-2 -c:v libx264 -preset medium -crf 21 -maxrate 2350k -bufsize 4700k -pix_fmt yuv420p -movflags +faststart assets/opening-home.mp4
+ffmpeg -i assets/opening-home.mp4 -frames:v 1 -q:v 3 assets/opening-home-poster.jpg
+```
+
 ## フォント
 
 原本のGolos Text、Inter、Sawarabi Minchoを同梱。Golos Textにない日本語のグリフにはNoto Sans JPを使用。各ライセンスは`licenses/`に保存。
