@@ -10,6 +10,7 @@ const position = (x, y, width, height) => `left:${x}px;top:${y}px;${width == nul
 const copy = (lines = longCopy, extra = '') => `<div class="copy ${extra}">${lines.map(line => `<p>${line}</p>`).join('')}</div>`;
 const placedCopy = (x, y, width, lines = longCopy, extra = '') => `<div class="placed ${extra}" style="${position(x, y, width)}">${copy(lines)}</div>`;
 const photo = (file, x, y, width, height = width) => image(file, 'placed photo', `style="${position(x, y, width, height)}"`);
+const openingHeaderLogo = { x: 38.689, y: 38.952 };
 const formHeader = () => `<header class="form-opening-header"><a href="#opening" aria-label="BAMP! トップ">${image('bamp-87-304.svg')}</a></header>`;
 const header = () => `<header class="page-header"><a href="#top" class="header-logo">BAMP!</a></header>`;
 const footer = () => '<footer class="page-footer"><p>©2026 BUMP!</p></footer>';
@@ -24,7 +25,7 @@ function opening(pc) {
     ${image(pc ? 'bamp-87-295.svg' : 'bamp-5-6.svg', 'opening-tagline', 'aria-label="Bamboo → Action → Movement → Phenomenal!" role="img"')}
     <h1 class="opening-copy">熱狂の渦中へ、いざ。</h1>
     <a class="enter" href="#form"><span class="enter-label">entry</span></a>
-    <header class="opening-header">${pc ? image('bamp-87-304.svg', 'opening-small-logo', 'aria-label="BAMP!" role="img"') : ''}</header>
+    <header class="opening-header">${image('bamp-87-304.svg', 'opening-small-logo', 'aria-label="BAMP!" role="img"')}</header>
   </div>`;
 }
 
@@ -157,8 +158,10 @@ function scalePage() {
   const openingWidth = desktopOpening ? 1280 : 402;
   const openingHeight = desktopOpening ? 832 : 874;
   const openingScale = Math.min(viewportWidth / openingWidth, viewportHeight / openingHeight);
-  const logoX = (viewportWidth - openingWidth * openingScale) / 2 + (desktopOpening ? 38.689 : 26.14) * openingScale;
-  const logoY = (viewportHeight - openingHeight * openingScale) / 2 + (desktopOpening ? 38.952 : 65.52) * openingScale;
+  site.style.setProperty('--opening-logo-x', `${openingHeaderLogo.x}px`);
+  site.style.setProperty('--opening-logo-y', `${openingHeaderLogo.y}px`);
+  const logoX = (viewportWidth - openingWidth * openingScale) / 2 + openingHeaderLogo.x * openingScale;
+  const logoY = (viewportHeight - openingHeight * openingScale) / 2 + openingHeaderLogo.y * openingScale;
   site.style.setProperty('--form-logo-x', `${logoX}px`);
   site.style.setProperty('--form-logo-y', `${logoY}px`);
   site.style.setProperty('--form-logo-scale', openingScale);
