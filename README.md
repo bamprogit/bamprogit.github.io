@@ -48,4 +48,4 @@ Figma接続を再確認し、添付画像と一致するform `302:2` を取得�
 
 送信には [FormSubmit](https://formsubmit.co/documentation) の無料HTMLフォーム転送を使用。受信先はBAMPのGmail（GitHub bamprogit設定で確認）。reCAPTCHAは既定のまま、honeypotを追加し、応募者への自動返信は送らない。FormSubmitによる入力内容の処理は[プライバシーポリシー](https://formsubmit.co/privacy.pdf)を参照。
 
-**2026-11-10公開指示**：本人が未公開の状態説明後にフォームの公開を明示指定したため、画面を公開する。Gmailの本人確認とFormSubmitのメール認証・受信テストは未完了。受付・メール到着の正常動作を確認済みと扱わない。ローカルのフォーム寸法・必須項目・不正日付拒否は確認済み。
+**2026-11-10公開・受信確認済み**：本人指定でフォームを公開後、BAMPのGoogleアカウントにログイン済みであることを確認。公開元 `https://bamprogit.github.io/` のFormSubmit認証を完了。公開フォームから管理用テストを送信し、reCAPTCHA確認後の `/#submitted`「送信しました」への遷移と、BAMP Gmailへの全入力項目の到着を実際のメールで確認した。テストには管理用メールアドレスと架空の氏名・所属・生年月日を使用した。
