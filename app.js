@@ -85,6 +85,8 @@ function form() {
   return `<section class="form-page" aria-labelledby="form-title">
     <h1 id="form-title">エントリー</h1>
     <form id="entry-form" action="https://formsubmit.co/bampro200@gmail.com" method="POST">
+      <input type="hidden" name="_webhook" value="https://script.google.com/macros/s/AKfycbz-TIND-ZKOVgiQBM_cAzVaIndYGq2fggNpD-sxvAJpBVnvHzI9N0YBy7WrAJePPV2J/exec">
+      <input type="hidden" name="受付ID" value="${crypto.randomUUID()}">
       <input type="hidden" name="_subject" value="BAMP! エントリー">
       <input type="hidden" name="_template" value="table">
       <input type="hidden" name="_next" value="https://bamprogit.github.io/#submitted">

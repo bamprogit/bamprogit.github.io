@@ -49,3 +49,13 @@ Figma接続を再確認し、添付画像と一致するform `302:2` を取得�
 送信には [FormSubmit](https://formsubmit.co/documentation) の無料HTMLフォーム転送を使用。受信先はBAMPのGmail（GitHub bamprogit設定で確認）。reCAPTCHAは既定のまま、honeypotを追加し、応募者への自動返信は送らない。FormSubmitによる入力内容の処理は[プライバシーポリシー](https://formsubmit.co/privacy.pdf)を参照。
 
 **2026-11-10公開・受信確認済み**：本人指定でフォームを公開後、BAMPのGoogleアカウントにログイン済みであることを確認。公開元 `https://bamprogit.github.io/` のFormSubmit認証を完了。公開フォームから管理用テストを送信し、reCAPTCHA確認後の `/#submitted`「送信しました」への遷移と、BAMP Gmailへの全入力項目の到着を実際のメールで確認した。テストには管理用メールアドレスと架空の氏名・所属・生年月日を使用した。
+
+## 回答のスプレッドシート保存
+
+FormSubmit の `_webhook` から Google Apps Script の `doPost` に回答を送り、BAMP所有の非公開スプレッドシートへ追記する。Gmail通知とreCAPTCHAは継続する。保存列は受信日時（日本時間）、名前、メールアドレス、現所属、生年月日、電話番号、その他・備考、受付ID。受付IDの重複は追記せず、入力の先頭が数式記号なら文字列として保存する。
+
+受信側の原本は `entry-webhook.gs`。Apps Script にコピーして `setup` を実行すると回答表を作成し、IDをスクリプトプロパティ `SPREADSHEET_ID` に保持する。既存IDがある場合は再作成しない。所有者として実行するウェブアプリを「全員」からPOSTできる設定でデプロイし、その `/exec` URLを `app.js` の `_webhook` に指定する。回答表の共有は「制限付き」のままにする。コード更新時はウェブアプリのデプロイを新バージョンへ更新する。
+
+受信URLは公開フォームに含まれる。FormSubmitには署名検証の設定がないため、送信元の認証は行わず、必須項目・形式・長さと受付IDを検証する。受付IDは重複防止用で、秘密鍵ではない。ウェブアプリから保存済み回答を返す機能はない。Google側の障害・上限で保存に失敗した場合はApps Scriptの実行ログとGmail通知を照合する。過去のメールの一括取り込みは行わない。
+
+2026-11-10：受信URLへの管理用POST、同一受付IDの重複抑止、回答表のBAMP所有・制限付き共有を確認。公開フォーム経由の最終確認は別途実施する。
