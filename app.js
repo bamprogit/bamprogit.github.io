@@ -159,6 +159,7 @@ function scalePage() {
   const openingHeight = desktopOpening ? 832 : 874;
   const openingScale = Math.min(viewportWidth / openingWidth, viewportHeight / openingHeight);
   const logoInset = Math.min(39, Math.max(16, viewportWidth * .03));
+  site.style.setProperty('--opening-logo-inset', `${logoInset / openingScale}px`);
   site.style.setProperty('--opening-logo-x', `${logoInset / openingScale + (openingWidth - viewportWidth / openingScale) / 2}px`);
   site.style.setProperty('--opening-logo-y', `${logoInset / openingScale + (openingHeight - viewportHeight / openingScale) / 2}px`);
   site.style.setProperty('--form-logo-x', `${logoInset}px`);
