@@ -18,7 +18,7 @@ const more = (to, x, y, label = 'view more') => `<a class="more ${label === 'con
 
 function opening(pc) {
   return `<div class="frame opening ${pc ? 'pc' : ''}" data-figma-node="${pc ? '87:290' : '3:3'}">
-    <video class="opening-video" ${matchMedia('(prefers-reduced-motion: reduce)').matches ? '' : 'autoplay'} muted playsinline preload="auto" poster="assets/opening-home-poster.jpg" src="assets/opening-home.mp4"></video>
+    <video class="opening-video" ${matchMedia('(prefers-reduced-motion: reduce)').matches ? '' : 'autoplay'} muted playsinline loop preload="auto" poster="assets/opening-home-poster.jpg" src="assets/opening-home.mp4"></video>
     <div class="opening-shade"></div>
     <button class="opening-play" type="button" aria-label="オープニング動画を再生" hidden>動画を再生</button>
     ${image(pc ? 'bamp-87-294.svg' : 'bamp-5-5.svg', 'opening-wordmark', 'aria-label="BAMP!" role="img"')}
