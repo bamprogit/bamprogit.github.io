@@ -25,3 +25,5 @@
 | font-3.ttf | Inter 400 | [Google Fonts](https://github.com/google/fonts/tree/main/ofl/inter), SIL OFL 1.1 |
 | font-4.ttf | Sawarabi Mincho 400 | [Google Fonts](https://github.com/google/fonts/tree/main/ofl/sawarabimincho), SIL OFL 1.1 |
 | jp-0.ttf / jp-1.ttf / jp-2.ttf | Noto Sans JP 400 / 500 / 700 | [Google Fonts](https://github.com/google/fonts/tree/main/ofl/notosansjp), SIL OFL 1.1 |
+
+- 2026-11-10: form `302:2` をFigma MCPで再取得。送信ボタンの矢印は原本が参照する既存 `6f79f.svg` をそのまま再利用。新しい画像・動画・書体は追加していない。
