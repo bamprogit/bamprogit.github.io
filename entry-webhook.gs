@@ -60,8 +60,10 @@ function doPost(event) {
     }
     const safeValues = values.map(value => /^[=+\-@\t\r]/.test(value) ? "'" + value : value);
     const row = last + 1;
-    sheet.getRange(row, 2, 1, 7).setNumberFormat('@').setValues([safeValues]);
-    sheet.getRange(row, 1).setValue(new Date()).setNumberFormat('yyyy/mm/dd hh:mm:ss');
+    if (row > sheet.getMaxRows()) sheet.insertRowsAfter(sheet.getMaxRows(), 1000);
+    sheet.getRange(row, 2, 1, 7).setNumberFormat('@');
+    sheet.getRange(row, 1).setNumberFormat('yyyy/mm/dd hh:mm:ss');
+    sheet.getRange(row, 1, 1, 8).setValues([[new Date(), ...safeValues]]);
     sheet.getRange(row, 1, 1, 8).setVerticalAlignment('top').setWrap(true);
     SpreadsheetApp.flush();
     return jsonOutput({ok: true});
