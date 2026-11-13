@@ -12,7 +12,7 @@ const placedCopy = (x, y, width, lines = longCopy, extra = '') => `<div class="p
 const photo = (file, x, y, width, height = width) => image(file, 'placed photo', `style="${position(x, y, width, height)}"`);
 const formHeader = () => `<header class="form-opening-header"><a href="#opening" aria-label="BAMP! トップ">${image('bamp-87-304.svg')}</a></header>`;
 const header = () => `<header class="page-header"><a href="#top" class="header-logo">BAMP!</a></header>`;
-const footer = () => '<footer class="page-footer"><p>©2026 BUMP!</p></footer>';
+const footer = () => '<footer class="page-footer"><p>©2026 BAMP!</p></footer>';
 const hero = (file, title, subtitle = 'テキストテキスト') => `<section class="hero">${image(file, 'hero-photo')}<h1 class="hero-heading">${title}<span class="hero-subtitle">${subtitle}</span></h1></section>`;
 const more = (to, x, y, label = 'view more') => `<a class="more ${label === 'contact us' ? 'contact-link' : ''}" href="#${to}" style="left:${x}px;top:${y}px"><span>${label}</span>${image(label === 'contact us' ? 'f2652.svg' : 'e7256.svg', 'underline')}${image(label === 'contact us' ? 'ca0f8.svg' : '9f1fc.svg', 'arrow')}</a>`;
 
